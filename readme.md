@@ -1,4 +1,4 @@
-# Hello World !
+# Kata java design patterns
 
 ## Candidates : 
 - factory

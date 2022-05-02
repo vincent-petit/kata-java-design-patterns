@@ -1,5 +1,6 @@
 package org.jkdp;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ class FoodTruckTest {
     String mealOrder = "Panini";
 
     var food = foodTruck.makeFood(mealOrder);
-
-    assertEquals("PANINI", food.getName());
+    assertThat(food).isNotNull().returns("PANINI", Food::getName);
   }
 }
