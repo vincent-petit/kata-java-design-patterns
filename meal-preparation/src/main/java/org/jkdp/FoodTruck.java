@@ -1,28 +1,30 @@
 package org.jkdp;
 
+import lombok.AllArgsConstructor;
+import org.jkdp.adapter.IngredientProviderChain;
 import org.jkdp.forbidden.food.Dish;
 import org.jkdp.forbidden.food.IngredientName;
 import org.jkdp.forbidden.fridge.Fridge;
-import org.jkdp.forbidden.shelf.Shelf;
 
+@AllArgsConstructor
 public class FoodTruck {
 
-  Fridge fridge = new Fridge();
+  IngredientProviderChain chain;
 
-  public Dish makeRecipe(){
+  public Dish makeRecipe() {
     Dish dish = new Dish();
-    dish.add(fridge.get(IngredientName.FROZEN_POTATO));
-    dish.add(fridge.get(IngredientName.FROZEN_POTATO));
-    dish.add(fridge.get(IngredientName.SAUSAGE));
+    dish.add(chain.getIngredient(IngredientName.FROZEN_POTATO));
+    dish.add(chain.getIngredient(IngredientName.FROZEN_POTATO));
+    dish.add(chain.getIngredient(IngredientName.SAUSAGE));
     return dish;
   }
 
-  public Dish makeBetterRecipe(){
+  public Dish makeBetterRecipe() {
     Dish dish = new Dish();
-    dish.add(fridge.get(IngredientName.FROZEN_POTATO));
-    dish.add(fridge.get(IngredientName.FROZEN_POTATO));
-    dish.add(fridge.get(IngredientName.SAUSAGE));
-    dish.add(fridge.get(IngredientName.ONION));
+    dish.add(chain.getIngredient(IngredientName.FROZEN_POTATO));
+    dish.add(chain.getIngredient(IngredientName.FROZEN_POTATO));
+    dish.add(chain.getIngredient(IngredientName.SAUSAGE));
+    dish.add(chain.getIngredient(IngredientName.ONION));
     return dish;
   }
 
