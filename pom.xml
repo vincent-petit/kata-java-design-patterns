@@ -15,6 +15,7 @@
   <modules>
     <module>food-truck</module>
     <module>meal-preparation</module>
+    <module>tennis</module>
   </modules>
 
   <properties>
