@@ -13,6 +13,7 @@
   <name>java-kata-design-patterns</name>
 
   <modules>
+    <module>maximize-toys</module>
     <module>food-truck</module>
     <module>meal-preparation</module>
     <module>tennis</module>
