@@ -5,13 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Solution {
   public static int toyCount(int size, int budget, int[] toys) {
-    //compter le nb de toys
-    //deduire du budget
-
-    // sort asc
-    Arrays.stream(toys).sorted().reduce(0, (a, b) -> 0);
-
-    return 0;
+    var consumedBudget = new AtomicInteger(0);
+    return (int) Arrays.stream(toys).sorted().takeWhile(toyPrice -> budget >= consumedBudget.addAndGet(toyPrice)).count();
   }
+
 }
 
