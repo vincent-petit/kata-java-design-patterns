@@ -1,37 +1,25 @@
 package org.jkdp;
 
+import java.util.Locale;
+import org.jkdp.command.BurgerCommand;
+import org.jkdp.command.PaniniCommand;
+import org.jkdp.command.PizzaCommand;
+
 public class FoodTruck {
 
+  private final PizzaCommand pizzaCommand = new PizzaCommand();
+  private final BurgerCommand burgerCommand = new BurgerCommand();
+  private final PaniniCommand paniniCommand = new PaniniCommand();
+
   public Food makeFood(String mealOrder){
-    if("Margharita pizza".equals(mealOrder)){
-      return new Food() {
-        public String getName() {
-          return "Margh. Pizza";
-        }
-        public Double getCost() {
-          return 13.2d;
-        }
-      };
+    if (mealOrder.toLowerCase(Locale.ROOT).contains("pizza")) {
+      return pizzaCommand.makeFood(mealOrder);
     }
-    if("Hawaiian pizza".equals(mealOrder)){
-      return new Food() {
-        public String getName() {
-          return "Pineapple Pizza";
-        }
-        public Double getCost() {
-          return 15.7d;
-        }
-      };
+    if (mealOrder.toLowerCase(Locale.ROOT).contains("panini")) {
+      return paniniCommand.makeFood(mealOrder);
     }
-    if("Panini".equals(mealOrder)){
-      return new Food() {
-        public String getName() {
-          return "PANINI";
-        }
-        public Double getCost() {
-          return 7.0d;
-        }
-      };
+    if (mealOrder.toLowerCase(Locale.ROOT).contains("burger")) {
+      return burgerCommand.makeFood(mealOrder);
     }
     return null;
   }
