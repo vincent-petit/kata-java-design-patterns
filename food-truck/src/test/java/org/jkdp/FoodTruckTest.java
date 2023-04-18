@@ -15,4 +15,25 @@ class FoodTruckTest {
     var food = foodTruck.makeFood(mealOrder);
     assertThat(food).isNotNull().returns("PANINI", Food::getName);
   }
+
+
+  @Test
+  void makeFood_burgerWithBacon_BurgerReturned() {
+    FoodTruck foodTruck = new FoodTruck();
+    String mealOrder = "Burger with bacon";
+
+    var food = foodTruck.makeFood(mealOrder);
+    assertThat(food).isNotNull().returns("Burger with bacon", Food::getName);
+    assertThat(food).isNotNull().returns(12.5d, Food::getCost);
+  }
+
+  @Test
+  void makeFood_burgerWithoutBacon_BurgerReturned() {
+    FoodTruck foodTruck = new FoodTruck();
+    String mealOrder = "Burger without bacon";
+
+    var food = foodTruck.makeFood(mealOrder);
+    assertThat(food).isNotNull().returns("Burger without bacon", Food::getName);
+    assertThat(food).isNotNull().returns(12.5d, Food::getCost);
+  }
 }
