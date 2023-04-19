@@ -2,9 +2,13 @@ package org.jkdp.command;
 
 import org.jkdp.Food;
 
-public class BurgerCommand implements Command {
+public class BurgerCommand extends Command {
+  public BurgerCommand(String mealOrder) {
+    super(mealOrder);
+  }
+
   @Override
-  public Food makeFood(String mealOrder) {
+  public Food makeFood() {
     Food burger = new Food("Burger", 12.5d);
     if (mealOrder.toLowerCase().contains("with bacon")) {
       return burger.withIngredient("bacon");

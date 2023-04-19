@@ -2,6 +2,13 @@ package org.jkdp.command;
 
 import org.jkdp.Food;
 
-public interface Command {
-  Food makeFood(String mealOrder);
+public abstract class Command {
+  String mealOrder;
+
+  protected Command(String mealOrder) {
+    this.mealOrder = mealOrder;
+  }
+
+  public abstract Food makeFood();
+
 }
