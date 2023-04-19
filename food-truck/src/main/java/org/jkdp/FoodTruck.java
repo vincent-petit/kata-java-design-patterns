@@ -6,7 +6,7 @@ import org.jkdp.command.Command;
 import org.jkdp.command.CommandHandler;
 
 public class FoodTruck {
-  public List<Food> foods = new ArrayList<>();
+  public final List<Food> foods = new ArrayList<>();
   CommandHandler commandHandler = new CommandHandler();
   public List<Food> makeFoods(String... mealOrder) {
     List<Command> commands = commandHandler.handleOrders(mealOrder);

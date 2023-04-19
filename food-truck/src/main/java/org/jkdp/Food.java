@@ -4,41 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Food {
+public class Food implements NamedAndPriced {
 
   private final String baseName;
   private final double baseCost;
-  private final List<String> ingredientAdded = new ArrayList<>();
-  private final List<String> ingredientRemoved = new ArrayList<>();
+  private final List<Ingredient> ingredientAdded = new ArrayList<>();
+  private final List<Ingredient> ingredientRemoved = new ArrayList<>();
 
 
   public Food(String baseName, double baseCost) {
     this.baseName = baseName;
     this.baseCost = baseCost;
   }
-  public Food withIngredient(String ingredient) {
+  public Food withIngredient(Ingredient ingredient) {
     ingredientAdded.add(ingredient);
     return this;
   }
 
-  public Food withoutIngredient(String ingredient) {
+  public Food withoutIngredient(Ingredient ingredient) {
     ingredientRemoved.add(ingredient);
     return this;
   }
 
-  Food(String baseName, double baseCost, List<String> ingredientAdded, List<String> ingredientRemoved) {
-    this.baseName = baseName;
-    this.baseCost = baseCost;
-    this.ingredientAdded.addAll(ingredientAdded);
-    this.ingredientRemoved.addAll(ingredientRemoved);
+
+  @Override
+  public String getName() {
+    return baseName
+            + joinIngredients(ingredientAdded, " with ")
+            + joinIngredients(ingredientRemoved, " without ");
   }
 
-  String getName() {
-    return baseName
-            + (ingredientAdded.isEmpty() ? "": ingredientAdded.stream().collect(Collectors.joining(", ", " with ", "")))
-            + (ingredientRemoved.isEmpty() ? "": ingredientRemoved.stream().collect(Collectors.joining(", ", " without ", "")));
+  private String joinIngredients(List<Ingredient> ingredientAdded, String prefix) {
+    if (ingredientAdded.isEmpty()) {
+      return "";
+    }
+    return ingredientAdded.stream()
+            .map(Ingredient::getName)
+            .collect(Collectors.joining(", ", prefix, ""));
   }
-  Double getCost() {
+
+  @Override
+  public Double getCost() {
     return baseCost;
   }
 
