@@ -13,7 +13,8 @@ class FoodTruckTest {
     String mealOrder = "Panini";
 
     var food = foodTruck.makeFood(mealOrder);
-    assertThat(food).isNotNull().returns("PANINI", Food::getName);
+    assertThat(food).isNotNull().returns("PANINI", Food::getName)
+            .returns(10.0D, Food::getCost);
   }
 
 
@@ -23,8 +24,19 @@ class FoodTruckTest {
     String mealOrder = "Burger with bacon";
 
     var food = foodTruck.makeFood(mealOrder);
-    assertThat(food).isNotNull().returns("Burger with bacon", Food::getName);
-    assertThat(food).isNotNull().returns(12.5d, Food::getCost);
+    assertThat(food).isNotNull().returns("Burger with bacon", Food::getName)
+            .returns(12.0D, Food::getCost);
+  }
+
+
+  @Test
+  void makeFood_burgerWithBaconAndCheddar_BurgerReturned() {
+    FoodTruck foodTruck = new FoodTruck();
+    String mealOrder = "Burger with bacon and cheddar";
+
+    var food = foodTruck.makeFood(mealOrder);
+    assertThat(food).isNotNull().returns("Burger with bacon and cheddar", Food::getName)
+            .returns(14.0D, Food::getCost);
   }
 
   @Test
@@ -33,7 +45,7 @@ class FoodTruckTest {
     String mealOrder = "Burger without bacon";
 
     var food = foodTruck.makeFood(mealOrder);
-    assertThat(food).isNotNull().returns("Burger without bacon", Food::getName);
-    assertThat(food).isNotNull().returns(12.5d, Food::getCost);
+    assertThat(food).isNotNull().returns("Burger without bacon", Food::getName)
+            .returns(10.0D, Food::getCost);
   }
 }

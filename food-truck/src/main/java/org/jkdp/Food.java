@@ -45,7 +45,7 @@ public class Food implements NamedAndPriced {
 
   @Override
   public Double getCost() {
-    return baseCost;
+    return baseCost + ingredientAdded.stream().mapToDouble(Ingredient::getCost).sum();
   }
 
 }
