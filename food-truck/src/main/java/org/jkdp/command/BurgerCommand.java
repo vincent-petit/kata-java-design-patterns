@@ -1,7 +1,6 @@
 package org.jkdp.command;
 
 import org.jkdp.Food;
-import org.jkdp.Ingredient;
 
 public class BurgerCommand extends Command {
   public BurgerCommand(String mealOrder) {
@@ -10,13 +9,10 @@ public class BurgerCommand extends Command {
 
   @Override
   public Food makeFood() {
-    Food burger = new Food("Burger", 12.5d);
-    if (mealOrder.toLowerCase().contains("with bacon")) {
-      return burger.withIngredient(new Ingredient("bacon"));
-    }
-    if (mealOrder.toLowerCase().contains("without bacon")) {
-      return burger.withoutIngredient(new Ingredient("bacon"));
-    }
-    return null;
+    Food burger = new Food("Burger", 12.0d);
+    ingredientFactory.toAdditionalIngredients(mealOrder.toLowerCase()).forEach(burger::withIngredient);
+    ingredientFactory.toExcludedIngredients(mealOrder.toLowerCase()).forEach(burger::withoutIngredient);
+
+    return burger;
   }
 }

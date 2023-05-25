@@ -12,16 +12,36 @@ class IngredientFactoryTest {
   IngredientFactory ingredientFactory = new IngredientFactory();
 
   public static Stream<Arguments> provideIngredientUseCase() {
-    return Stream.of(Arguments.of("Burger with bacon", List.of("bacon")),
-                     Arguments.of("Burger with bacon and cheddar", List.of("bacon", "cheddar"))
-                     Arguments.of("Burger with bacon and cheddar without tomate", List.of("bacon", "cheddar"))
+    return Stream.of(Arguments.of("Burger", List.of()),
+                     Arguments.of("Burger without tomato", List.of()),
+                     Arguments.of("Burger with bacon", List.of("bacon")),
+                     Arguments.of("Burger with bacon and cheddar", List.of("bacon", "cheddar")),
+                     Arguments.of("Burger with bacon and cheddar and ananas", List.of("bacon", "cheddar", "ananas")),
+                     Arguments.of("Burger with bacon and cheddar without tomato", List.of("bacon", "cheddar")),
+                     Arguments.of("Burger with bacon and cheddar without tomato and without bun", List.of("bacon", "cheddar"))
     );
   }
 
   @ParameterizedTest()
   @MethodSource("provideIngredientUseCase")
-  void nominal(String order, List<String> ingredients) {
-    Assertions.assertThat(ingredientFactory.toIngredients(order))
+  void toAdditionalIngredients(String order, List<String> ingredients) {
+    Assertions.assertThat(ingredientFactory.toAdditionalIngredients(order))
+            .extracting(Ingredient::getName)
+            .containsExactlyElementsOf(ingredients);
+  }
+
+  public static Stream<Arguments> provideExcludedIngredientUseCase() {
+    return Stream.of(Arguments.of("Burger", List.of()),
+                     Arguments.of("Burger with bacon", List.of()),
+                     Arguments.of("Burger without tomato and without bun", List.of("tomato", "bun")),
+                     Arguments.of("Burger with bacon and cheddar without tomato and without bun", List.of("tomato", "bun"))
+    );
+  }
+
+  @ParameterizedTest()
+  @MethodSource("provideExcludedIngredientUseCase")
+  void toExcludedIngredients(String order, List<String> ingredients) {
+    Assertions.assertThat(ingredientFactory.toExcludedIngredients(order))
             .extracting(Ingredient::getName)
             .containsExactlyElementsOf(ingredients);
   }
