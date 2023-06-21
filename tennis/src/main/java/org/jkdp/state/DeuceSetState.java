@@ -18,6 +18,6 @@ public class DeuceSetState implements SetState {
 
   @Override
   public void ballScored(PlayerName playerName) {
-    //TODO
+    setContext.changeState(new AdvantageSetState(setContext, playerName));
   }
 }
