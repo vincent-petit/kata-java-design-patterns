@@ -32,10 +32,12 @@ public class InProgressSetState implements SetState {
         break;
       case THIRTY:
         playerScore.points = Points.FOURTY;
-        //TODO
+        if (setContext.getOpponentPlayerScore(playerName).points == Points.FOURTY) {
+          setContext.changeState(new DeuceSetState(setContext));
+        }
         break;
       case FOURTY:
-        //TODO
+        setContext.changeState(new WonSetState(setContext, playerName));
         break;
     }
   }
